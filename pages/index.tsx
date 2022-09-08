@@ -1,6 +1,8 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import imageLoader from "../imageLoader";
 import styles from "../styles/Home.module.css";
 import { Result, Welcome } from "../types";
 
@@ -15,8 +17,19 @@ const Home: NextPage<{ data: Result[] }> = ({ data }) => {
       {data.map((item) => {
         return (
           <div key={item.id}>
-            <li>{item.name}</li>
-            <Image src={item.image} alt={item.name} width="200" height="200" />
+            <li>
+              <Link href={`/data/${item.id}`}>
+                <a>{item.name}</a>
+              </Link>
+            </li>
+            <Image
+              loader={imageLoader}
+              unoptimized
+              src={item.image}
+              alt={item.name}
+              width="200"
+              height="200"
+            />
           </div>
         );
       })}
